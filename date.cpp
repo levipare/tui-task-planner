@@ -7,62 +7,102 @@
 Date::Date() {
   std::time_t t = std::time(nullptr);
   std::tm *now = std::localtime(&t);
-  this->day = now->tm_mday;
-  this->month = now->tm_mon;
-  this->year = now->tm_year + 1900;
+  this->time = *now;
+  std::mktime(&this->time);
+}
+
+Date::Date(std::tm &t) {
+  this->time.tm_mday = t.tm_mday;
+  this->time.tm_mon = t.tm_mon;
+  this->time.tm_year = t.tm_year;
+  std::mktime(&this->time);
 }
 
 Date::Date(int day, int month, int year) {
-  this->day = day;
-  this->month = month;
-  this->year = year;
+  // Weird behavior with ctime where the firt call of
+  // std::mktime uses a seemingly random timezone
+  std::time_t t = std::time(nullptr);
+  this->time = *std::localtime(&t);
+  this->time.tm_mday = day;
+  this->time.tm_mon = month;
+  this->time.tm_year = year - 1900;
+  std::mktime(&this->time);
 }
 
 // Getters
-int Date::get_day() const { return this->day; }
+int Date::get_day() const { return this->time.tm_mday; }
 
-int Date::get_month() const { return this->month; }
+int Date::get_month() const { return this->time.tm_mon; }
 
-int Date::get_year() const { return this->year; }
+int Date::get_year() const { return this->time.tm_year + 1900; }
 
 // Setters
-void Date::set_day(int d) { this->day = d; }
-
-void Date::set_month(int m) { this->month = m; }
-
-void Date::set_year(int y) { this->year = y; }
-
-// Overloaded operators
-bool Date::operator==(const Date &rhs) const {
-  return this->day == rhs.day && this->month == rhs.month &&
-
-         this->year == rhs.year;
+void Date::set_day(int d) {
+  this->time.tm_mday = d;
+  std::mktime(&this->time);
 }
 
-std::ostream &operator<<(std::ostream &os, const Date &d) {
-  os << d.month + 1 << '/' << d.day << '/' << d.year;
-  return os;
+void Date::set_month(int m) {
+  this->time.tm_mon = m;
+  std::mktime(&this->time);
 }
 
-std::size_t Date::operator()(const Date &d) const {
-  return std::hash<int>()(d.day) + std::hash<int>()(d.month) +
-         std::hash<int>()(d.year);
+void Date::set_year(int y) {
+  this->time.tm_year = y - 1900;
+  std::mktime(&this->time);
 }
 
 // Utils
-Date::WeekDay Date::week_day_enum() const {
-  std::tm tm = {};
-  tm.tm_year = this->year - 1900;
-  tm.tm_mon = this->month;
-  tm.tm_mday = this->day;
-  std::mktime(&tm);
-
-  return WeekDay(tm.tm_wday);
+void Date::change_by_days(int days) {
+  this->time.tm_mday += days;
+  std::mktime(&this->time);
 }
 
-Date::Month Date::month_enum() const { return Month(this->month); }
+void Date::change_by_months(int months) {
+  this->time.tm_mon += months;
+  std::mktime(&this->time);
+}
 
-std::string week_day_to_string(Date::WeekDay d) {
+void Date::change_by_years(int years) {
+  this->time.tm_year += years;
+  std::mktime(&this->time);
+}
+
+Date::Month Date::month_enum() const { return Month(this->time.tm_mon); }
+
+Date::WeekDay Date::week_day_enum() const {
+  return WeekDay(this->time.tm_wday);
+}
+
+// Overloaded operators
+bool Date::operator==(const Date &rhs) const {
+  return this->time.tm_mday == rhs.time.tm_mday &&
+         this->time.tm_mon == rhs.time.tm_mon &&
+         this->time.tm_year == rhs.time.tm_year;
+}
+
+bool Date::operator<(const Date &rhs) const {
+  if (this->time.tm_year < rhs.time.tm_year) {
+    return true;
+  } else if (this->time.tm_year == rhs.time.tm_year) {
+    if (this->time.tm_mon < rhs.time.tm_mon) {
+      return true;
+    } else if (this->time.tm_mon == rhs.time.tm_mon) {
+      return this->time.tm_mday < rhs.time.tm_mday;
+    }
+  }
+
+  return false;
+}
+
+std::ostream &operator<<(std::ostream &os, const Date &d) {
+  os << d.time.tm_mon + 1 << '/' << d.time.tm_mday << '/'
+     << d.time.tm_year + 1900;
+  return os;
+}
+
+// Extra
+std::string Date::week_day_to_string(Date::WeekDay d) {
   switch (d) {
   case Date::WeekDay::SUNDAY:
     return "Sunday";
@@ -81,7 +121,7 @@ std::string week_day_to_string(Date::WeekDay d) {
   }
 }
 
-std::string month_to_string(Date::Month m) {
+std::string Date::month_to_string(Date::Month m) {
   switch (m) {
   case Date::Month::JANUARY:
     return "January";

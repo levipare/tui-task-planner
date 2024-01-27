@@ -1,6 +1,7 @@
 #ifndef DATE_H
 #define DATE_H
 
+#include <ctime>
 #include <string>
 
 class Date {
@@ -31,9 +32,7 @@ public:
   };
 
 private:
-  int year;
-  int month;
-  int day;
+  std::tm time;
 
 public:
   // Constructors
@@ -42,6 +41,13 @@ public:
    * @brief Default constructor. Sets the date to the current date.
    */
   Date();
+
+  /**
+   * @brief Constructor. Takes in a std::tm object and constructs a Date object
+   * based off of it.
+   * @param time a std::time object
+   */
+  Date(std::tm &time);
 
   /**
    * @brief Constructor. Sets the date to the specified values.
@@ -86,6 +92,24 @@ public:
 
   // Utils
   /**
+   * @brief Change the date by +/- amount of days
+   * @param days the amount of the days to add/remove
+   */
+  void change_by_days(int days);
+
+  /**
+   * @brief Change the date by +/- amount of days
+   * @param days the amount of the days to add/remove
+   */
+  void change_by_months(int months);
+
+  /**
+   * @brief Change the date by +/- amount of days
+   * @param days the amount of the days to add/remove
+   */
+  void change_by_years(int years);
+
+  /**
    * @return week day enum
    */
   WeekDay week_day_enum() const;
@@ -98,24 +122,21 @@ public:
   // Overloaded operators
   bool operator==(const Date &rhs) const;
 
+  bool operator<(const Date &rhs) const;
+
   friend std::ostream &operator<<(std::ostream &os, const Date &d);
 
-  /*
-   * Used by unordered_map to compute hash
+  /**
+   * @brief Get string representation of WeekDay enum ex. Wednesday
+   * @return week day name
    */
-  std::size_t operator()(const Date &d) const;
+  static std::string week_day_to_string(Date::WeekDay);
+
+  /**
+   * @brief Get string representation of Month enum ex. February
+   * @return month name
+   */
+  static std::string month_to_string(Date::Month);
 };
-
-/**
- * @brief Get string representation of WeekDay enum ex. Wednesday
- * @return week day name
- */
-std::string week_day_to_string(Date::WeekDay);
-
-/**
- * @brief Get string representation of Month enum ex. February
- * @return month name
- */
-std::string month_to_string(Date::Month);
 
 #endif
