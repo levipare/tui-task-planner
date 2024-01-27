@@ -1,34 +1,33 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include "date.h"
+
 #include <chrono>
 #include <string>
 
 class Task {
 private:
   std::string name;
-  std::string detail;
-  std::chrono::system_clock::time_point date;
+  Date date;
+  bool completed;
 
 public:
-  Task(std::string name, std::string detail);
+  Task(std::string name, Date date);
 
   // Getters
   std::string get_name() const;
 
-  std::string get_detail() const;
+  Date get_date() const;
 
-  std::chrono::system_clock::time_point get_date() const;
+  bool get_completed() const;
 
   // Setters
   void set_name(std::string new_name);
 
-  void set_detail(std::string new_detail);
+  void set_date(Date date);
 
-  void set_date(std::chrono::system_clock::time_point date);
-
-  // Overloaded operators
-  bool operator==(const Task &rhs);
+  void set_completed(bool c);
 };
 
 #endif

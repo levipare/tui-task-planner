@@ -1,29 +1,23 @@
 #include "task.h"
+#include "date.h"
 #include <chrono>
 #include <string>
 
-Task::Task(std::string name, std::string detail) {
+Task::Task(std::string name, Date date) {
   this->name = name;
-  this->detail = detail;
+  this->date = date;
 }
 
 // Getters
 std::string Task::get_name() const { return this->name; }
 
-std::string Task::get_detail() const { return this->detail; }
+Date Task::get_date() const { return this->date; }
 
-std::chrono::system_clock::time_point Task::get_date() const {
-  return this->date;
-}
+bool Task::get_completed() const { return this->completed; }
 
 // Setters
 void Task::set_name(std::string name) { this->name = name; }
 
-void Task::set_detail(std::string detail) { this->detail = detail; }
+void Task::set_date(Date date) { this->date = date; }
 
-void Task::set_date(std::chrono::system_clock::time_point date) {
-  this->date = date;
-}
-
-// Operator Overloading
-bool Task::operator==(const Task &rhs) { return *this == rhs; }
+void Task::set_completed(bool c) { this->completed = c; }
