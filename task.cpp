@@ -6,6 +6,7 @@
 Task::Task(std::string name, Date date) {
   this->name = name;
   this->date = date;
+  this->completed = false;
 }
 
 // Getters
