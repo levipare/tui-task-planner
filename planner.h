@@ -14,7 +14,6 @@ private:
   std::map<Date, std::shared_ptr<std::vector<std::shared_ptr<Task>>>> tasks;
 
   Date selected_date;
-  Date current_date;
   std::shared_ptr<Task> selected_task;
 
 public:
@@ -23,14 +22,10 @@ public:
   // Getters
   Date get_selected_date() const;
 
-  Date get_current_date() const;
-
   std::shared_ptr<Task> get_selected_task() const;
 
   // Setters
   void set_selected_date(Date date);
-
-  void set_current_date(Date date);
 
   void set_selected_task(std::shared_ptr<Task> t_ptr);
 

@@ -14,16 +14,12 @@ Planner::Planner() {}
 // Getters
 Date Planner::get_selected_date() const { return this->selected_date; }
 
-Date Planner::get_current_date() const { return this->current_date; }
-
 std::shared_ptr<Task> Planner::get_selected_task() const {
   return this->selected_task;
 }
 
 // Setters
 void Planner::set_selected_date(Date date) { this->selected_date = date; }
-
-void Planner::set_current_date(Date date) { this->current_date = date; }
 
 void Planner::set_selected_task(std::shared_ptr<Task> t_ptr) {
   this->selected_task = t_ptr;
@@ -138,7 +134,7 @@ void Planner::render(std::ostream &os, int term_w, int term_h) {
     os << SET_CURSOR(2 + box_h * (day_count / 7), box_w * (day_count % 7));
 
     // Highlight current day
-    if (v.first == this->current_date) {
+    if (v.first == Date()) {
       os << SET_BOLD;
       os << SET_STYLE(34);
     }
@@ -173,7 +169,7 @@ void Planner::render(std::ostream &os, int term_w, int term_h) {
         }
 
         // Add ellipses if the task name is too long
-        if (t_ptr->get_name().size() > box_w - 3) {
+        if (t_ptr->get_name().size() > box_w) {
           os << t_ptr->get_name().substr(0, box_w - 3);
           os << "...";
         } else {
