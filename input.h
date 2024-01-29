@@ -9,10 +9,10 @@
 
 class Input : public Renderable {
 public:
-  enum class State { NAVIGATE, CREATE };
+  enum class Mode { NAVIGATE, CREATE };
 
 private:
-  State state;
+  Mode state;
   std::string input_string;
   std::shared_ptr<Planner> planner;
 
