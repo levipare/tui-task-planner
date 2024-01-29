@@ -1,6 +1,4 @@
 #include "terminal.h"
-#include <csignal>
-#include <iostream>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
