@@ -14,10 +14,7 @@ static void handle_sigint(int n) {
   exit(0);
 }
 
-void setup() {
-  set_raw();
-  std::signal(SIGINT, handle_sigint);
-}
+void setup() { std::signal(SIGINT, handle_sigint); }
 
 void set_raw() {
 
