@@ -24,8 +24,17 @@ private:
   std::vector<std::shared_ptr<Renderable>> render_objects;
 
 public:
+  /**
+   * @brief Constructor to instantiate a renderer.
+   * @param render_objs a vector of pointers to objects that implement the
+   * Renderable interface
+   */
   Renderer(std::vector<std::shared_ptr<Renderable>> render_objs);
 
+  /**
+   * @brief Draws the render_objs to the terminal by calling the
+   * Renderable::render() method
+   */
   void draw();
 };
 

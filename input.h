@@ -17,10 +17,18 @@ private:
   std::shared_ptr<Planner> planner;
 
 public:
+  /**
+   * @brief Constructor
+   */
   Input(std::shared_ptr<Planner> plnr);
 
+  /**
+   * @brief Handle inputs
+   * @return true if the handling indicates to quit
+   */
   bool handle();
 
+  // Interface impl
   void render(std::ostream &os, int term_w, int term_h);
 };
 
