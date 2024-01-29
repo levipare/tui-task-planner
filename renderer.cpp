@@ -4,9 +4,7 @@
 #include "terminal.h"
 #include <iostream>
 
-Renderer::Renderer(std::shared_ptr<Terminal> term,
-                   std::vector<std::shared_ptr<Renderable>> render_objs) {
-  this->term = term;
+Renderer::Renderer(std::vector<std::shared_ptr<Renderable>> render_objs) {
   this->render_objects = render_objs;
 }
 
@@ -16,7 +14,7 @@ void Renderer::draw() {
   std::cout << SET_CURSOR(0, 0);
 
   for (std::shared_ptr<Renderable> r : this->render_objects) {
-    r->render(std::cout, this->term->get_width(), this->term->get_height());
+    r->render(std::cout, Terminal::get_width(), Terminal::get_height());
   }
 
   std::cout << std::flush; // Flush changes to STDOUT

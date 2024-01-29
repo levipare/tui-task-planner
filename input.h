@@ -19,7 +19,7 @@ private:
 public:
   Input(std::shared_ptr<Planner> plnr);
 
-  void handle();
+  bool handle();
 
   void render(std::ostream &os, int term_w, int term_h);
 };

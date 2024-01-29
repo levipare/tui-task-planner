@@ -3,20 +3,17 @@
 
 #include <termios.h>
 
-class Terminal {
-private:
-  struct termios original_state;
+namespace Terminal {
 
-public:
-  Terminal();
+void setup();
 
-  void set_raw();
+void set_raw();
 
-  void restore();
+void restore();
 
-  int get_width();
+int get_width();
 
-  int get_height();
-};
+int get_height();
+}; // namespace Terminal
 
 #endif

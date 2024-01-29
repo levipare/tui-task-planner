@@ -16,7 +16,7 @@ Input::Input(std::shared_ptr<Planner> plnr) {
   this->state = Mode::NAVIGATE;
 }
 
-void Input::handle() {
+bool Input::handle() {
   char c = std::cin.get();
   switch (this->state) {
   case Mode::NAVIGATE: {
@@ -30,7 +30,7 @@ void Input::handle() {
       break;
     }
     case 'q': {
-      exit(0);
+      return true;
     }
     case 'h': {
       this->planner->translate_days(-1);
@@ -174,6 +174,7 @@ void Input::handle() {
     }
   }
   }
+  return false;
 }
 
 void Input::render(std::ostream &os, int term_w, int term_h) {

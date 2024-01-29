@@ -14,12 +14,12 @@
 
 int main() {
   // Instantiate the essential components
-  std::shared_ptr<Terminal> term = std::make_shared<Terminal>();
+  Terminal::setup();
   std::shared_ptr<Planner> planner = std::make_shared<Planner>();
   std::shared_ptr<Input> input = std::make_shared<Input>(planner);
 
   std::vector<std::shared_ptr<Renderable>> render_objects = {planner, input};
-  Renderer renderer(term, render_objects);
+  Renderer renderer(render_objects);
 
   // TODO: Add a csv parser and generator to load/save tasks to a file
   // Some test tasks
@@ -33,10 +33,11 @@ int main() {
   planner->add_task(std::make_shared<Task>(t4));
 
   // Setup terminal enviroment
-  term->set_raw();
-
-  while (true) {
+  Terminal::set_raw();
+  bool quit = false;
+  while (!quit) {
     renderer.draw();
-    input->handle();
+    quit = input->handle();
   }
+  Terminal::restore();
 }

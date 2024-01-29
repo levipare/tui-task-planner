@@ -21,12 +21,10 @@
 
 class Renderer {
 private:
-  std::shared_ptr<Terminal> term;
   std::vector<std::shared_ptr<Renderable>> render_objects;
 
 public:
-  Renderer(std::shared_ptr<Terminal> term,
-           std::vector<std::shared_ptr<Renderable>> render_objs);
+  Renderer(std::vector<std::shared_ptr<Renderable>> render_objs);
 
   void draw();
 };
