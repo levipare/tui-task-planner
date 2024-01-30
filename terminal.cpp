@@ -17,7 +17,6 @@ static void handle_sigint(int n) {
 void setup() { std::signal(SIGINT, handle_sigint); }
 
 void set_raw() {
-
   tcgetattr(STDIN_FILENO, &original_state); // Get current tty attributes
 
   // Modifying tty attributes
@@ -41,7 +40,6 @@ int get_width() {
 }
 
 int get_height() {
-
   struct winsize w;
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
   return w.ws_row;
