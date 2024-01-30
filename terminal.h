@@ -1,8 +1,6 @@
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
-#include <termios.h>
-
 namespace Terminal {
 
 /**
