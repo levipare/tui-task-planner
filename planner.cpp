@@ -159,24 +159,27 @@ void Planner::render(std::ostream &os, int term_w, int term_h) {
       for (auto t_ptr : *v.second) {
         os << SET_CURSOR(event_count + 3 + box_h * (day_count / 7),
                          box_w * (day_count % 7));
-        if (t_ptr->get_completed()) {
-          os << SET_STRIKE << SET_DIM;
-        }
-
         if (t_ptr == this->selected_task) {
           selected_pos_row = event_count + 3 + box_h * (day_count / 7);
+
           selected_pos_col = box_w * (day_count % 7);
-        }
-
-        // Add ellipses if the task name is too long
-        if (t_ptr->get_name().size() > box_w) {
-          os << t_ptr->get_name().substr(0, box_w - 3);
-          os << "...";
         } else {
-          os << t_ptr->get_name();
-        }
+          if (t_ptr->get_completed()) { // Completed tasks
+            os << SET_STRIKE << SET_DIM;
+          } else if (t_ptr->get_date() < Date()) { // Late tasks
+            os << SET_STYLE(31);
+          }
 
-        os << RESET;
+          // Add ellipses if the task name is too long
+          if (t_ptr->get_name().size() > box_w) {
+            os << t_ptr->get_name().substr(0, box_w - 3);
+            os << "...";
+          } else {
+            os << t_ptr->get_name();
+          }
+
+          os << RESET;
+        }
 
         event_count++;
       }
