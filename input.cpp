@@ -51,6 +51,7 @@ bool Input::handle() {
     case 'x': {
       if (this->planner->get_selected_task()) {
         this->planner->remove_task(this->planner->get_selected_task());
+        this->planner->save_to_csv();
       }
       break;
     }
@@ -64,6 +65,7 @@ bool Input::handle() {
         break;
 
       t_ptr->set_completed(!t_ptr->get_completed());
+      this->planner->save_to_csv();
       break;
     }
     case '\t': {
@@ -155,6 +157,7 @@ bool Input::handle() {
                this->planner->get_selected_date())));
       this->state = Mode::NAVIGATE;
       this->input_string = "";
+      this->planner->save_to_csv();
       break;
     }
     case '\033': { // Handle escape sequences
