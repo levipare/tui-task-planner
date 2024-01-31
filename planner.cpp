@@ -167,7 +167,7 @@ void Planner::render(std::ostream &os, int term_w, int term_h) {
     // Highlight current day
     if (v.first == Date()) {
       os << SET_BOLD;
-      os << SET_STYLE(34);
+      os << SET_STYLE(33);
     }
 
     // Dim the padding days that are not in the selected month
