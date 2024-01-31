@@ -1,4 +1,5 @@
 #include "planner.h"
+#include "csv.h"
 #include "date.h"
 #include "renderer.h"
 
@@ -9,7 +10,9 @@
 #include <memory>
 #include <vector>
 
-Planner::Planner() {}
+const std::string DEFAULT_CSV_FILE_NAME = "planner-tasks.csv";
+
+Planner::Planner() : csv(DEFAULT_CSV_FILE_NAME) { this->load_from_csv(); }
 
 // Getters
 Date Planner::get_selected_date() const { return this->selected_date; }
@@ -96,6 +99,34 @@ Planner::get_monthly_tasks() {
 std::shared_ptr<std::vector<std::shared_ptr<Task>>>
 Planner::get_date_tasks(Date d) {
   return this->tasks[d];
+}
+
+void Planner::save_to_csv() {
+  std::vector<std::vector<std::string>> lines;
+
+  for (auto vec_ptr : this->tasks) {
+    if (vec_ptr.second) {
+      for (auto task_ptr : *vec_ptr.second) {
+        Date d = task_ptr->get_date();
+        lines.push_back({task_ptr->get_name(), std::to_string(d.get_day()),
+                         std::to_string(d.get_month()),
+                         std::to_string(d.get_year()),
+                         task_ptr->get_completed() ? "1" : "0"});
+      }
+    }
+  }
+
+  this->csv.write(lines);
+}
+
+void Planner::load_from_csv() {
+  for (auto line : this->csv.read()) {
+    std::shared_ptr t = std::make_shared<Task>(
+        line[0],
+        Date(std::stoi(line[1]), std::stoi(line[2]), std::stoi(line[3])));
+    this->add_task(t);
+    t->set_completed(std::stoi(line[4]));
+  }
 }
 
 #define PRINT_WEEK_DAY(day)                                                    \

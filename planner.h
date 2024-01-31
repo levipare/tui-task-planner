@@ -1,9 +1,11 @@
 #ifndef PLANNER_H
 #define PLANNER_H
 
+#include "csv.h"
 #include "date.h"
 #include "renderer.h"
 #include "task.h"
+
 #include <map>
 #include <memory>
 #include <optional>
@@ -11,6 +13,7 @@
 
 class Planner : public Renderable {
 private:
+  Csv csv;
   std::map<Date, std::shared_ptr<std::vector<std::shared_ptr<Task>>>> tasks;
 
   Date selected_date;
@@ -42,6 +45,10 @@ public:
   get_monthly_tasks();
 
   std::shared_ptr<std::vector<std::shared_ptr<Task>>> get_date_tasks(Date d);
+
+  void save_to_csv();
+
+  void load_from_csv();
 
   // Renderable impl
   void render(std::ostream &os, int term_w, int term_h);
