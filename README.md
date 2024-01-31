@@ -1,18 +1,38 @@
 # M1OEP - Task Planner
+
 ## Levi Pare
+
 ## Project Summary
 
+This is a terminal based UI task planner app. It allows tasks to be created and assigned to certain days.
+Tasks can be checked off or fully deleted. The UI is based around a full calendar view of the month and a user an navigate months.
+Tasks are saved to a csv file so that they persist among sessions.
+
+### Module 1 Concepts Used
+
+- Classes seperated into header and .cpp files
+  - Task, Planner, Renderer, Input, Date, Csv
+- Enums
+  - Two enums in Date class
+  - One enum in Input class
+- Overloaded operators
+  - Overloaded < operator for custom map key in Date class
+  - Overloaded == operator for Date comparison
+  - Overloaded << operator for custom printing of Date object
 
 ## Known Bugs
 
+No known bugs at this time.
 
 ## Future Work
-- Add a feature to customize the color a task.
+
+- Add a feature to customize the color of a task.
 - The ability to edit a task.
 - Create a task with a date other than what day is currently selected.
 
 ## Citations
-Abstract class. cppreference.com. (n.d.). https://en.cppreference.com/w/cpp/language/abstract_class 
+
+Abstract class. cppreference.com. (n.d.). https://en.cppreference.com/w/cpp/language/abstract_class
 
 C Time Library ctime. cplusplus.com. (n.d.). https://cplusplus.com/reference/ctime/
 
@@ -23,4 +43,3 @@ termios. man7.org (n.d.) https://man7.org/linux/man-pages/man3/termios.3.html
 ioctl. man7.org. (n.d.) https://man7.org/linux/man-pages/man2/ioctl_tty.2.html
 
 ## Grade
-
