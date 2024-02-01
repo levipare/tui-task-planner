@@ -1,16 +1,10 @@
-#include "date.h"
 #include "input.h"
 #include "planner.h"
 #include "renderable.h"
 #include "renderer.h"
 #include "terminal.h"
 
-#include <iostream>
 #include <memory>
-#include <string>
-#include <sys/ioctl.h>
-#include <termios.h>
-#include <unistd.h>
 
 int main() {
   // Instantiate the essential components
