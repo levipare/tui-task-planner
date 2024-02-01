@@ -8,6 +8,10 @@ This is a terminal based UI task planner app. It allows tasks to be created and 
 Tasks can be checked off or fully deleted. The UI is based around a full calendar view of the month and a user an navigate months.
 Tasks are saved to a csv file so that they persist among sessions.
 
+### Note: This project depends on POSIX specific apis therefore it is only able to compile on POSIX systems i.e. MacOS or Linux
+
+### Note: For the optimal experience. Do not run in the integrated CLion terminal.
+
 ### Module 1 Concepts Used
 
 - Classes seperated into header and .cpp files
