@@ -8,9 +8,25 @@ This is a terminal based UI task planner app. It allows tasks to be created and 
 Tasks can be checked off or fully deleted. The UI is based around a full calendar view of the month and a user an navigate months.
 Tasks are saved to a csv file so that they persist among sessions.
 
+### How to Build and Run
+
+Navigate to the project directory run the commands:
+
+```
+mkdir cmake-build-debug
+cmake -S. -Bcmake-build-debug
+cmake --build cmake-build-debug
+```
+
+Run the program using by running the following command:
+
+```
+./cmake-build-debug/M1OEP
+```
+
 ### Note: This project depends on POSIX specific apis therefore it is only able to compile on POSIX systems i.e. MacOS or Linux
 
-### Note: For the optimal experience. Do not run in the integrated CLion terminal.
+### Note: Do not run in the integrated CLion terminal -- it is feature incomplete. Run in a proper terminal emulator such as ITerm2.
 
 ### Module 1 Concepts Used
 
