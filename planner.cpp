@@ -89,7 +89,7 @@ Planner::get_monthly_tasks() {
 
   int days_to_show = begin_pad + days_in_month + end_pad;
   for (int i = 0; i < days_to_show; i++) {
-    monthly_tasks.insert({incrementer, this->tasks[incrementer]});
+    monthly_tasks.insert({incrementer, this->get_date_tasks(incrementer)});
     incrementer.change_by_days(1);
   }
 
