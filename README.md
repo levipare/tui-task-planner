@@ -8,7 +8,11 @@ This is a terminal based UI task planner app. It allows tasks to be created and 
 Tasks can be checked off or fully deleted. The UI is based around a full calendar view of the month and the user can navigate across days/months.
 Tasks are saved to a csv file so that they persist among sessions.
 
+## Demo Video
+https://github.com/uvmcs2300s2024/M1OEP-lrpare/assets/74433376/2526817d-0e60-4ca1-994b-60e09659aed1
+
 ### How to Build and Run
+
 
 Navigate to the project directory and run the commands:
 
