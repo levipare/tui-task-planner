@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-This is a terminal based UI task planner app. It allows tasks to be created and assigned to certain days.
+This is a terminal based UI task planner app written in C++. It allows tasks to be created and assigned to certain days.
 Tasks can be checked off or fully deleted. The UI is based around a full calendar view of the month and the user can navigate across days/months.
 Tasks are saved to a csv file so that they persist among sessions.
 
